@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		2577E0D5BD07E24A9F67D1B8 /* Pods_MyNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1E572535EBD6ED93FBA369A /* Pods_MyNews.framework */; };
+		64491F7222F33FAE009360DF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64491F7122F33FAE009360DF /* HomeViewController.swift */; };
+		64491F7422F33FBF009360DF /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64491F7322F33FBF009360DF /* MenuViewController.swift */; };
+		64491F7622F33FFA009360DF /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64491F7522F33FFA009360DF /* ContainerViewController.swift */; };
+		64491F7822F347EF009360DF /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64491F7722F347EF009360DF /* Protocols.swift */; };
 		64B6276522F1BFE400EDDBD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B6276422F1BFE400EDDBD9 /* AppDelegate.swift */; };
 		64B6276722F1BFE400EDDBD9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B6276622F1BFE400EDDBD9 /* ViewController.swift */; };
 		64B6276A22F1BFE400EDDBD9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64B6276822F1BFE400EDDBD9 /* Main.storyboard */; };
@@ -16,11 +20,14 @@
 		64B6277722F1C0D100EDDBD9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 64B6277622F1C0D100EDDBD9 /* GoogleService-Info.plist */; };
 		64EB615222F1D98D0020C52C /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EB615122F1D98D0020C52C /* SignUpViewController.swift */; };
 		64EB615422F1F42D0020C52C /* MoreUserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EB615322F1F42D0020C52C /* MoreUserDetailsViewController.swift */; };
-		64EB615622F1F87A0020C52C /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EB615522F1F87A0020C52C /* NewsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		203954362D0941B20C929CDF /* Pods-MyNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyNews.release.xcconfig"; path = "Target Support Files/Pods-MyNews/Pods-MyNews.release.xcconfig"; sourceTree = "<group>"; };
+		64491F7122F33FAE009360DF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		64491F7322F33FBF009360DF /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		64491F7522F33FFA009360DF /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		64491F7722F347EF009360DF /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		64B6276122F1BFE400EDDBD9 /* MyNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64B6276422F1BFE400EDDBD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64B6276622F1BFE400EDDBD9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -31,7 +38,6 @@
 		64B6277622F1C0D100EDDBD9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		64EB615122F1D98D0020C52C /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		64EB615322F1F42D0020C52C /* MoreUserDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreUserDetailsViewController.swift; sourceTree = "<group>"; };
-		64EB615522F1F87A0020C52C /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		7A12419D5AC57EC688DB3E0C /* Pods-MyNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyNews.debug.xcconfig"; path = "Target Support Files/Pods-MyNews/Pods-MyNews.debug.xcconfig"; sourceTree = "<group>"; };
 		F1E572535EBD6ED93FBA369A /* Pods_MyNews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyNews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -82,10 +88,13 @@
 				64B6276822F1BFE400EDDBD9 /* Main.storyboard */,
 				64B6276B22F1BFEA00EDDBD9 /* Assets.xcassets */,
 				64EB615122F1D98D0020C52C /* SignUpViewController.swift */,
+				64491F7122F33FAE009360DF /* HomeViewController.swift */,
+				64491F7322F33FBF009360DF /* MenuViewController.swift */,
+				64491F7522F33FFA009360DF /* ContainerViewController.swift */,
 				64EB615322F1F42D0020C52C /* MoreUserDetailsViewController.swift */,
 				64B6277622F1C0D100EDDBD9 /* GoogleService-Info.plist */,
 				64B6276D22F1BFEA00EDDBD9 /* LaunchScreen.storyboard */,
-				64EB615522F1F87A0020C52C /* NewsViewController.swift */,
+				64491F7722F347EF009360DF /* Protocols.swift */,
 				64B6277022F1BFEA00EDDBD9 /* Info.plist */,
 			);
 			path = MyNews;
@@ -218,9 +227,12 @@
 			files = (
 				64EB615222F1D98D0020C52C /* SignUpViewController.swift in Sources */,
 				64EB615422F1F42D0020C52C /* MoreUserDetailsViewController.swift in Sources */,
+				64491F7622F33FFA009360DF /* ContainerViewController.swift in Sources */,
 				64B6276722F1BFE400EDDBD9 /* ViewController.swift in Sources */,
-				64EB615622F1F87A0020C52C /* NewsViewController.swift in Sources */,
+				64491F7422F33FBF009360DF /* MenuViewController.swift in Sources */,
 				64B6276522F1BFE400EDDBD9 /* AppDelegate.swift in Sources */,
+				64491F7222F33FAE009360DF /* HomeViewController.swift in Sources */,
+				64491F7822F347EF009360DF /* Protocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

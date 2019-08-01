@@ -9,12 +9,11 @@
 import UIKit
 import Firebase
 
-class NewsViewController: UIViewController {
+
+class ContainerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let user = Auth.auth().currentUser {
-            print(user.email!)
-        }
+        
     }
 }

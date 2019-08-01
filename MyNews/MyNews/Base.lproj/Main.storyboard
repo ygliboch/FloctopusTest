@@ -83,7 +83,7 @@
                         <outlet property="view" destination="8bC-Xf-vdC" id="8iJ-80-jGP"/>
                         <segue destination="Mw1-EJ-ZKD" kind="show" identifier="SignUp" id="vYA-0D-gGP"/>
                         <segue destination="H3Y-Xh-OKy" kind="showDetail" identifier="SignInSucces" id="KTH-ni-uDL"/>
-                        <segue destination="2nM-eQ-eo9" kind="unwind" unwindAction="unWindSegueWithSegue:" id="HJa-Me-7YY"/>
+                        <segue destination="2nM-eQ-eo9" kind="unwind" identifier="unWindSegueWithSegue" unwindAction="unWindSegueWithSegue:" id="HJa-Me-7YY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -167,7 +167,7 @@
                         <outlet property="password" destination="Taf-N9-nhO" id="mG7-p7-e85"/>
                         <segue destination="UET-lX-vMR" kind="showDetail" identifier="moreUserDetail" id="mEh-YD-9eT"/>
                         <segue destination="u4p-CI-tuu" kind="unwind" identifier="BackToLoginView" unwindAction="unWindSegueWithSegue:" id="afu-Ym-QXl"/>
-                        <segue destination="u4p-CI-tuu" kind="unwind" unwindAction="unWindSegueWithSegue:" id="CfJ-Uu-kov"/>
+                        <segue destination="u4p-CI-tuu" kind="unwind" identifier="unWindSegueWithSegue" unwindAction="unWindSegueWithSegue:" id="CfJ-Uu-kov"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0l6-ZZ-ZrG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -184,15 +184,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4rJ-qT-f0I">
-                                <rect key="frame" x="20" y="568" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="20" y="568" width="34" height="30"/>
+                                <state key="normal" title="Back"/>
                                 <connections>
                                     <action selector="backButton:" destination="UET-lX-vMR" eventType="touchUpInside" id="75f-sH-PAq"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aln-M3-rhT">
-                                <rect key="frame" x="348" y="568" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="362" y="568" width="32" height="30"/>
+                                <state key="normal" title="Next"/>
+                                <connections>
+                                    <action selector="nextButton:" destination="UET-lX-vMR" eventType="touchUpInside" id="ob6-eK-AOB"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ppH-A8-Ybr">
                                 <rect key="frame" x="20" y="308" width="374" height="30"/>
@@ -242,10 +245,11 @@
                     </view>
                     <connections>
                         <outlet property="userBirthDate" destination="OMF-Ms-tAW" id="xFe-9P-UL8"/>
-                        <outlet property="userMobile" destination="lNP-xZ-vmv" id="hVQ-o2-lVY"/>
+                        <outlet property="userMobile" destination="6dv-eL-2gh" id="OA6-sg-F1p"/>
                         <outlet property="userName" destination="ppH-A8-Ybr" id="Jee-Cc-NHX"/>
                         <outlet property="userSername" destination="U8j-p7-Xji" id="aHy-ae-SQQ"/>
                         <segue destination="nfo-Oa-TI5" kind="unwind" identifier="BackToSignUp" unwindAction="unWindSegueWithSegue:" id="WEl-Ad-OHb"/>
+                        <segue destination="H3Y-Xh-OKy" kind="showDetail" identifier="SignUpDone" id="XSJ-PE-A5M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GA5-sI-v2d" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -253,10 +257,10 @@
             </objects>
             <point key="canvasLocation" x="3197" y="-380"/>
         </scene>
-        <!--News View Controller-->
+        <!--Container View Controller-->
         <scene sceneID="Jmt-Og-BkK">
             <objects>
-                <viewController id="H3Y-Xh-OKy" customClass="NewsViewController" customModule="MyNews" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="H3Y-Xh-OKy" customClass="ContainerViewController" customModule="MyNews" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KFk-XB-2NX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -267,6 +271,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jxp-Na-a47" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2197.1014492753625" y="351.5625"/>
+        </scene>
+        <!--Home View Controller-->
+        <scene sceneID="RNx-Ns-I84">
+            <objects>
+                <viewController id="RAv-CA-NOz" customClass="HomeViewController" customModule="MyNews" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pUr-qZ-cmD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="0.16572630560000001" blue="0.16004215290000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="tintColor" red="1" green="0.16572630560000001" blue="0.16004215290000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <viewLayoutGuide key="safeArea" id="SH1-o6-4Lu"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SVq-ld-CLR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3064" y="352"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MWq-xM-ZKx">
@@ -287,4 +307,7 @@
             <point key="canvasLocation" x="240.57971014492756" y="53.571428571428569"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="KTH-ni-uDL"/>
+    </inferredMetricsTieBreakers>
 </document>

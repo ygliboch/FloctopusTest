@@ -8,4 +8,6 @@ target 'MyNews' do
   # Pods for MyNews
 	pod 'Firebase/Analytics'
 	pod 'Firebase/Auth'
+	pod 'Firebase/Core'
+	pod 'Firebase/Database'
 end

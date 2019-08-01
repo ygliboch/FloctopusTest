@@ -26,12 +26,14 @@ class SignUpViewController: UIViewController {
             password.layer.borderColor = UIColor.red.cgColor
             confirmPassword.layer.borderWidth = 1.0
             confirmPassword.layer.borderColor = UIColor.red.cgColor
+            password.text = ""
+            confirmPassword.text = ""
             return
         } 
         Auth.auth().createUser(withEmail: eMail.text!, password: password.text!) { authResult, error in
             if authResult != nil &&  error == nil {
                 self.performSegue(withIdentifier: "moreUserDetail", sender: "Foo")
-                print("authorize secces \(self.eMail!)")
+//                print("authorize secces \(self.eMail!)")
             } else {
                 self.errorLabel.isHidden = false
                 self.errorLabel.text = error?.localizedDescription
