@@ -9,5 +9,5 @@
 import UIKit
 
 protocol HomeControllerDelegete {
-    func handleMenuToggle ()
+    func handleMenuToggle(menuOption: MenuOptions?)
 }
