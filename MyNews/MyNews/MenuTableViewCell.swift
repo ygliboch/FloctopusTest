@@ -30,8 +30,6 @@ class MenuTableViewCell: UITableViewCell {
         iconView.translatesAutoresizingMaskIntoConstraints = false
         iconView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         iconView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
-//        iconView.widthAnchor.constraint(equalTo: widthAnchor, constant: 5).isActive = true
-//        iconView.heightAnchor.constraint(equalTo: heightAnchor, constant: 5).isActive = true
         iconView.heightAnchor.constraint(equalToConstant: 25).isActive = true
         iconView.widthAnchor.constraint(equalToConstant: 25).isActive = true
         

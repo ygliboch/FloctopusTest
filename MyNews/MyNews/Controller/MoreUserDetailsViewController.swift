@@ -20,7 +20,6 @@ class MoreUserDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         user = Auth.auth().currentUser
-        // Do any additional setup after loading the view.
     }
 
     @IBAction func backButton(_ sender: Any) {
@@ -31,23 +30,19 @@ class MoreUserDetailsViewController: UIViewController {
     
     @IBAction func nextButton(_ sender: Any) {
         if checkInfo() {
-            let postInfo = ["userName": userName.text!, "userSername": userSername.text!, "userMobile": userMobile.text!, "userBirthDate": userBirthDate.text!] as [String : Any]
+            let postInfo = ["userName": userName.text!, "userSername": userSername.text!, "userMobile": userMobile.text!, "userBirthDate": userBirthDate.text!, "userCountry" : "", "userCity" : ""] as [String : Any]
             
-            let t = Database.database().reference().child("users").child("\(user!.uid)").setValue(postInfo)
+            Database.database().reference().child("users").child("\(user!.uid)").setValue(postInfo)
             
-//            let user = Auth.auth().currentUser
-                let ref = Database.database().reference()
-                ref.observe(DataEventType.value, with: { (snaphot) in
-                    print(snaphot)
-                    let postDick = snaphot.value as? [String : AnyObject] ?? [:]
-                    print(postDick)
-                }) {(error) in
-                    print("======================error==============================")
-                    print(error.localizedDescription)
-                }
-//            ref?.child("users").child(user!.uid).setValue(["userName" : userName.text])
-            print("USER ID : \(user?.uid)")
-            performSegue(withIdentifier: "SignUpDone", sender: "Foo")
+            let ref = Database.database().reference()
+            ref.observe(DataEventType.value, with: { (snaphot) in
+                print(snaphot)
+                let postDick = snaphot.value as? [String : AnyObject] ?? [:]
+                print(postDick)
+            }) {(error) in
+                print("======================error==============================")
+                print(error.localizedDescription)
+            }
         }
     }
     

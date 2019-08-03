@@ -80,20 +80,12 @@ class ContainerViewController: UIViewController {
     
     func didSelectMenuOption(menuOption: MenuOptions) {
         switch menuOption {
-//        case .News:
-//            let controller = NewsViewController()
-//            present(UINavigationController(rootViewController: controller), animated: true, completion: nil)
+
         case .Sources:
             performSegue(withIdentifier: "sourcesSegue", sender: "Foo")
-//            let controller = SourcesViewController()
-//            present(UINavigationController(rootViewController: controller), animated: true, completion: nil)
         case .Weather:
             performSegue(withIdentifier: "weathrSegue", sender: "Foo")
-//            let controller = WeatherViewController()
-//            present(UINavigationController(rootViewController: controller), animated: true, completion: nil)
         case .Profile:
-//            let controller = ProfileViewController()
-//            present(UINavigationController(rootViewController: controller), animated: true, completion: nil)
             performSegue(withIdentifier: "profileSegue", sender: "Foo")
         case .Exit:
             do {
