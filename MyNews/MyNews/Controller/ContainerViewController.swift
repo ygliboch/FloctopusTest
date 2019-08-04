@@ -8,17 +8,20 @@
 
 import UIKit
 import Firebase
+import SwiftyJSON
 
 class ContainerViewController: UIViewController {
 
     var menuController: MenuViewController!
     var centerController: UIViewController!
     var isExpended = false
+    let requestsManager = RequestsManager()
+    var city: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
-        configureHomeController() 
+        configureHomeController()
     }
     
     @IBAction func unWindSegue(segue: UIStoryboardSegue){
@@ -78,13 +81,30 @@ class ContainerViewController: UIViewController {
         }, completion: nil)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let evc = segue.destination as? WeatherViewController {
+            if (segue.identifier == "weathrSegue" && sender != nil) {
+                evc.city = self.city
+                evc.json = sender as? JSON
+            }
+        }
+    }
+    
     func didSelectMenuOption(menuOption: MenuOptions) {
         switch menuOption {
 
         case .Sources:
             performSegue(withIdentifier: "sourcesSegue", sender: "Foo")
         case .Weather:
-            performSegue(withIdentifier: "weathrSegue", sender: "Foo")
+            requestsManager.currentCity(completationHandler: {(response) in
+                if let city = response {
+                    self.city = city
+                    self.requestsManager.getWeatherJSON(forCity: city, completationHandler: {(response) in
+                        guard response?.isEmpty == false else { return }
+                        self.performSegue(withIdentifier: "weathrSegue", sender: response)
+                    })
+                }
+            })
         case .Profile:
             performSegue(withIdentifier: "profileSegue", sender: "Foo")
         case .Exit:

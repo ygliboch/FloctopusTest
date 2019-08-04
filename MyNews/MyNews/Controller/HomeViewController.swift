@@ -16,7 +16,6 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .red
         configureNavigationBar()
-        // Do any additional setup after loading the view.
     }
     
 

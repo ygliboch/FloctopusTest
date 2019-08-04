@@ -9,7 +9,6 @@
 import UIKit
 
 enum MenuOptions: Int, CustomStringConvertible {
-//    case News
     case Sources
     case Weather
     case Profile
@@ -17,8 +16,6 @@ enum MenuOptions: Int, CustomStringConvertible {
     
     var description: String {
         switch self {
-//        case .News:
-//            return "News"
         case .Sources:
             return "Sources"
         case .Weather:
@@ -32,8 +29,6 @@ enum MenuOptions: Int, CustomStringConvertible {
     
     var image: UIImage {
         switch self {
-//        case .News:
-//            return UIImage(named: "news") ?? UIImage()
         case .Sources:
             return UIImage(named: "sources") ?? UIImage()
         case .Weather:
@@ -54,7 +49,6 @@ class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
-        // Do any additional setup after loading the view.
     }
     
     func configureTableView() {

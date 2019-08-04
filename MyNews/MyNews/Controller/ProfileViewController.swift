@@ -26,7 +26,7 @@ class ProfileViewController: UIViewController {
     let user = Auth.auth().currentUser
     let countryArray: [String] = ["Ukrain", "Poland", "Germany"]
     let cityArray: [String : [String]] = [
-        "Ukrain" : ["Kharkov", "Dnepr", "Lviv"],
+        "Ukrain" : ["Kiev", "Kharkov", "Dnepr", "Lviv"],
         "Poland" : ["Warsaw", "Krakow", "Poznan", "Lodz"],
         "Germany" : ["Berlin", "Munich", "Koln", "Hamburg"]
     ]

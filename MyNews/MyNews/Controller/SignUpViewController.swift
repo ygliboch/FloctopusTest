@@ -33,7 +33,6 @@ class SignUpViewController: UIViewController {
         Auth.auth().createUser(withEmail: eMail.text!, password: password.text!) { authResult, error in
             if authResult != nil &&  error == nil {
                 self.performSegue(withIdentifier: "moreUserDetail", sender: "Foo")
-//                print("authorize secces \(self.eMail!)")
             } else {
                 self.errorLabel.isHidden = false
                 self.errorLabel.text = error?.localizedDescription
