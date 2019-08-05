@@ -30,10 +30,10 @@ class MoreUserDetailsViewController: UIViewController {
     
     @IBAction func nextButton(_ sender: Any) {
         if checkInfo() {
-            let postInfo = ["userName": userName.text!, "userSername": userSername.text!, "userMobile": userMobile.text!, "userBirthDate": userBirthDate.text!, "userCountry" : "", "userCity" : ""] as [String : Any]
+            let postInfo = ["userName": userName.text!, "userSername": userSername.text!, "userMobile": userMobile.text!, "userBirthDate": userBirthDate.text!, "userCountry" : "", "userCity" : "", "userSources" : ""] as [String : Any]
             
             Database.database().reference().child("users").child("\(user!.uid)").setValue(postInfo)
-            
+            performSegue(withIdentifier: "SignUpDone", sender: "Foo")
             let ref = Database.database().reference()
             ref.observe(DataEventType.value, with: { (snaphot) in
                 print(snaphot)

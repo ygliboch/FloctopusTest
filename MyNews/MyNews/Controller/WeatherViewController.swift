@@ -100,6 +100,8 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = daysTableView.dequeueReusableCell(withIdentifier: "daysCell", for: indexPath) as! WeatherTableViewCell
         cell.json = allDays[indexPath.row]
+        cell.layer.cornerRadius = 5
+        cell.selectionStyle = .none
         return cell
     }
 }

@@ -14,6 +14,8 @@
 		6414012622F458FB003241A7 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6414012522F458FB003241A7 /* WeatherViewController.swift */; };
 		6414012822F45909003241A7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6414012722F45909003241A7 /* ProfileViewController.swift */; };
 		6414012B22F48AD8003241A7 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6414012A22F48AD8003241A7 /* CountryCell.swift */; };
+		6422F3B022F8B6F1005A625C /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6422F3AF22F8B6F0005A625C /* NewsCell.swift */; };
+		6436FB4822F85B2100022432 /* SourcesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6436FB4722F85B2100022432 /* SourcesCell.swift */; };
 		64491F7222F33FAE009360DF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64491F7122F33FAE009360DF /* HomeViewController.swift */; };
 		64491F7422F33FBF009360DF /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64491F7322F33FBF009360DF /* MenuViewController.swift */; };
 		64491F7622F33FFA009360DF /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64491F7522F33FFA009360DF /* ContainerViewController.swift */; };
@@ -38,6 +40,8 @@
 		6414012522F458FB003241A7 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		6414012722F45909003241A7 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		6414012A22F48AD8003241A7 /* CountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
+		6422F3AF22F8B6F0005A625C /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
+		6436FB4722F85B2100022432 /* SourcesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcesCell.swift; sourceTree = "<group>"; };
 		64491F7122F33FAE009360DF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		64491F7322F33FBF009360DF /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		64491F7522F33FFA009360DF /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
@@ -123,7 +127,9 @@
 				6414011F22F43D1E003241A7 /* MenuTableViewCell.swift */,
 				64B6277622F1C0D100EDDBD9 /* GoogleService-Info.plist */,
 				64BA7C9722F70A440063D5A4 /* WeatherTableViewCell.swift */,
+				6436FB4722F85B2100022432 /* SourcesCell.swift */,
 				6414012A22F48AD8003241A7 /* CountryCell.swift */,
+				6422F3AF22F8B6F0005A625C /* NewsCell.swift */,
 				64BA7C9522F7011A0063D5A4 /* RequestsManager.swift */,
 				64B6276D22F1BFEA00EDDBD9 /* LaunchScreen.storyboard */,
 				64491F7722F347EF009360DF /* Protocols.swift */,
@@ -260,12 +266,14 @@
 				64EB615222F1D98D0020C52C /* SignUpViewController.swift in Sources */,
 				6414012622F458FB003241A7 /* WeatherViewController.swift in Sources */,
 				64EB615422F1F42D0020C52C /* MoreUserDetailsViewController.swift in Sources */,
+				6436FB4822F85B2100022432 /* SourcesCell.swift in Sources */,
 				64491F7622F33FFA009360DF /* ContainerViewController.swift in Sources */,
 				6414012222F458D2003241A7 /* NewsViewController.swift in Sources */,
 				6414012422F458EC003241A7 /* SourcesViewController.swift in Sources */,
 				64BA7C9622F7011A0063D5A4 /* RequestsManager.swift in Sources */,
 				6414012B22F48AD8003241A7 /* CountryCell.swift in Sources */,
 				64BA7C9822F70A440063D5A4 /* WeatherTableViewCell.swift in Sources */,
+				6422F3B022F8B6F1005A625C /* NewsCell.swift in Sources */,
 				64B6276722F1BFE400EDDBD9 /* ViewController.swift in Sources */,
 				64491F7422F33FBF009360DF /* MenuViewController.swift in Sources */,
 				6414012022F43D1E003241A7 /* MenuTableViewCell.swift in Sources */,

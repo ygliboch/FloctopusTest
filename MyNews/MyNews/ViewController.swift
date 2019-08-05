@@ -28,7 +28,6 @@ class LoginViewController: UIViewController {
         Auth.auth().signIn(withEmail: eMail.text!, password: password.text!) { [weak self] user, error in
             if self != nil &&  error == nil {
                 self!.performSegue(withIdentifier: "SignInSucces", sender: "Foo")
-                print("authorize secces \(self!.eMail!)")
             } else {
                 print(error!.localizedDescription)
 //                self?.badLoginOrPassword.text = error!.localizedDescription

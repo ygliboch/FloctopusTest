@@ -11,19 +11,26 @@ import Firebase
 import SwiftyJSON
 
 class ContainerViewController: UIViewController {
-
+    
+    var homeController: HomeViewController!
     var menuController: MenuViewController!
     var centerController: UIViewController!
     var isExpended = false
     let requestsManager = RequestsManager()
     var city: String?
+    var sources: JSON?
+    var userSources: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
+        self.requestsManager.getSources(completationHandler: {(response) in
+            guard response?.isEmpty == false else { return }
+            self.sources = response
+        })
         configureHomeController()
     }
-    
+        
     @IBAction func unWindSegue(segue: UIStoryboardSegue){
     }
     
@@ -40,7 +47,7 @@ class ContainerViewController: UIViewController {
     }
     
     func configureHomeController () {
-        let homeController = HomeViewController()
+        homeController = HomeViewController()
         homeController.delegate = self
         centerController = UINavigationController(rootViewController: homeController)
         view.addSubview(centerController.view)
@@ -82,10 +89,26 @@ class ContainerViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let evc = segue.destination as? WeatherViewController {
-            if (segue.identifier == "weathrSegue" && sender != nil) {
+        if (segue.identifier == "weathrSegue" && sender != nil) {
+            if let evc = segue.destination as? WeatherViewController {
                 evc.city = self.city
                 evc.json = sender as? JSON
+            }
+        }
+        if (segue.identifier == "sourcesSegue" && sender != nil) {
+            if let evc = segue.destination as? SourcesViewController {
+                if sources!.isEmpty {
+                    evc.userSources = []
+                } else {
+                    let str = sender as! String
+                    let subUserSources = str.split(separator: ",")
+                    var usrSources: [String] = []
+                    for sub in subUserSources {
+                        usrSources.append(String(sub))
+                    }
+                    evc.userSources = usrSources
+                }
+                evc.json = sources
             }
         }
     }
@@ -94,7 +117,13 @@ class ContainerViewController: UIViewController {
         switch menuOption {
 
         case .Sources:
-            performSegue(withIdentifier: "sourcesSegue", sender: "Foo")
+            requestsManager.getUserSources(completationHandler: {(response) in
+                if response != nil {
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "sourcesSegue", sender: response)
+                    }
+                }
+            })
         case .Weather:
             requestsManager.currentCity(completationHandler: {(response) in
                 if let city = response {

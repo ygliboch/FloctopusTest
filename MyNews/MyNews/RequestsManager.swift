@@ -15,13 +15,36 @@ class RequestsManager {
     let ref = Database.database().reference()
     let user = Auth.auth().currentUser
     
+    func getNews(sources: String, completationHandler: @escaping(JSON?)->Void) { Alamofire.request("https://newsapi.org/v2/top-headlines?sources=\(sources)&apiKey=d9190df3b0dc4cffa64adadb38af6078").responseJSON { (response) in
+            if response.data != nil && response.error == nil {
+                let json = JSON(response.value!)
+                completationHandler(json)
+            } else {
+                print("!!!!!!!!================================!!!!")
+                print(response.error!.localizedDescription)
+            }
+        }
+    }
+    
     func currentCity(completationHandler: @escaping(String?)->Void) {
         ref.child("users").child("\(user!.uid)").observe(.value) { (DataSnapshot) in
             DispatchQueue.main.async {
                 let dick = DataSnapshot.value as? [String : Any] ?? [:]
-                print(dick)
+//                print(dick)
                 guard dick.isEmpty == false else { return }
                 completationHandler(dick["userCity"] as? String ?? "")
+            }
+        }
+    }
+    
+    func getUserSources(completationHandler: @escaping(String?)->Void) {
+        ref.child("users").child("\(user!.uid)").observe(.value) { (DataSnapshot) in
+            DispatchQueue.main.async {
+                let dick = DataSnapshot.value as? [String : Any] ?? [:]
+//                print(dick)
+                guard dick.isEmpty == false else { return }
+                print("tutuutut")
+                completationHandler(dick["userSources"] as? String ?? "")
             }
         }
     }
@@ -31,10 +54,22 @@ class RequestsManager {
         if result.data != nil && result.error == nil {
             let json = JSON(result.value!)
             completationHandler(json)
-                            print(json)
+//                            print(json)
         } else {
             print(result.error!.localizedDescription)
         }
+        }.task?.resume()
+    }
+    
+    func getSources(completationHandler: @escaping(JSON?)->Void) {
+        Alamofire.request("https://newsapi.org/v2/sources?apiKey=d9190df3b0dc4cffa64adadb38af6078").responseJSON { (response) in
+            if response.data != nil && response.error == nil {
+                let json = JSON(response.value!)
+//                print(json)
+                completationHandler(json)
+            } else {
+                print(response.error!.localizedDescription)
+            }
         }.task?.resume()
     }
 }
