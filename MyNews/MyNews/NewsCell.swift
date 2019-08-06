@@ -12,35 +12,37 @@ import UIKit
 
 class NewsCell: UITableViewCell {
     
-    let iconView: UIImageView = {
-        let icon = UIImageView()
-        //        icon.contentMode = .scaleAspectFill
-        icon.clipsToBounds = true
-        return icon
+    let sourceNameLabel: UILabel = {
+        let source = UILabel()
+        source.numberOfLines = 0
+        source.textColor = .blue
+        source.font = UIFont.systemFont(ofSize: 16)
+        return source
     }()
     
     let descriptionLabel: UILabel = {
         let description = UILabel()
         description.numberOfLines = 0
         description.textColor = .gray
-        description.font = UIFont.systemFont(ofSize: 16)
+        description.font = UIFont.systemFont(ofSize: 20)
         return description
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview(iconView)
-        iconView.translatesAutoresizingMaskIntoConstraints = false
-        iconView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-        iconView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
-        iconView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        iconView.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        addSubview(sourceNameLabel)
+        sourceNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        sourceNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+        sourceNameLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+        sourceNameLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
         
         addSubview(descriptionLabel)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+        descriptionLabel.topAnchor.constraint(equalTo: sourceNameLabel.topAnchor, constant: 25).isActive = true
         descriptionLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
-        descriptionLabel.leftAnchor.constraint(equalTo: iconView.rightAnchor, constant: 10).isActive = true
+        descriptionLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+        descriptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

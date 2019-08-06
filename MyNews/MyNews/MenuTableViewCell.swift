@@ -12,7 +12,6 @@ class MenuTableViewCell: UITableViewCell {
     
     let iconView: UIImageView = {
         let icon = UIImageView()
-//        icon.contentMode = .scaleAspectFill
         icon.clipsToBounds = true
         return icon
     }()

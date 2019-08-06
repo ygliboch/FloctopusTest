@@ -18,6 +18,9 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         errorLabel.isHidden = true
+        eMail.delegate = self
+        password.delegate = self
+        confirmPassword.delegate = self
     }
     
     @IBAction func nextButton(_ sender: UIButton) {
@@ -39,10 +42,14 @@ class SignUpViewController: UIViewController {
             }
         }
     }
-    @IBAction func backButton(_ sender: Any) {
-        performSegue(withIdentifier: "BackToLoginView", sender: "Foo")
-    }
     
     @IBAction func unWindSegue(segue: UIStoryboardSegue){
+    }
+}
+
+extension SignUpViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
 }

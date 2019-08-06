@@ -25,19 +25,13 @@ class SourcesCell: UITableViewCell {
                 categoryLabel.text = data!["category"].string
                 descriptionLabel.text = data!["description"].string
                 id = data!["id"].string
+                box.isUserInteractionEnabled = false
             }
         }
     }
     
-    
-    @IBAction func boxButton(_ sender: UIButton) {
-        if sellect == true {
-            sellect = false
-            box.setImage(#imageLiteral(resourceName: "uncheckBox"), for: .normal)
-        } else {
-            sellect = true
-            box.setImage(#imageLiteral(resourceName: "checkBox"), for: .normal)
-        }
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        box.setImage(UIImage(named: selected ? "checkBox" : "uncheckBox"), for:.normal)
     }
-    
 }

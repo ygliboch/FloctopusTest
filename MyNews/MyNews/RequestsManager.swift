@@ -20,7 +20,6 @@ class RequestsManager {
                 let json = JSON(response.value!)
                 completationHandler(json)
             } else {
-                print("!!!!!!!!================================!!!!")
                 print(response.error!.localizedDescription)
             }
         }
@@ -30,7 +29,6 @@ class RequestsManager {
         ref.child("users").child("\(user!.uid)").observe(.value) { (DataSnapshot) in
             DispatchQueue.main.async {
                 let dick = DataSnapshot.value as? [String : Any] ?? [:]
-//                print(dick)
                 guard dick.isEmpty == false else { return }
                 completationHandler(dick["userCity"] as? String ?? "")
             }
@@ -41,9 +39,7 @@ class RequestsManager {
         ref.child("users").child("\(user!.uid)").observe(.value) { (DataSnapshot) in
             DispatchQueue.main.async {
                 let dick = DataSnapshot.value as? [String : Any] ?? [:]
-//                print(dick)
                 guard dick.isEmpty == false else { return }
-                print("tutuutut")
                 completationHandler(dick["userSources"] as? String ?? "")
             }
         }
@@ -54,7 +50,6 @@ class RequestsManager {
         if result.data != nil && result.error == nil {
             let json = JSON(result.value!)
             completationHandler(json)
-//                            print(json)
         } else {
             print(result.error!.localizedDescription)
         }
@@ -65,7 +60,6 @@ class RequestsManager {
         Alamofire.request("https://newsapi.org/v2/sources?apiKey=d9190df3b0dc4cffa64adadb38af6078").responseJSON { (response) in
             if response.data != nil && response.error == nil {
                 let json = JSON(response.value!)
-//                print(json)
                 completationHandler(json)
             } else {
                 print(response.error!.localizedDescription)

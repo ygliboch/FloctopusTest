@@ -111,6 +111,12 @@ class ContainerViewController: UIViewController {
                 evc.json = sources
             }
         }
+        if (segue.identifier == "newsSegue" && sender != nil) {
+            if let evc = segue.destination as? NewsViewController {
+                evc.data = (sender as? ([JSON], Int))?.0
+                evc.index = (sender as? ([JSON], Int))?.1
+            }
+        }
     }
     
     func didSelectMenuOption(menuOption: MenuOptions) {
@@ -120,6 +126,7 @@ class ContainerViewController: UIViewController {
             requestsManager.getUserSources(completationHandler: {(response) in
                 if response != nil {
                     DispatchQueue.main.async {
+                        print("========>", response!)
                         self.performSegue(withIdentifier: "sourcesSegue", sender: response)
                     }
                 }
@@ -149,11 +156,15 @@ class ContainerViewController: UIViewController {
 }
 
 extension ContainerViewController: HomeControllerDelegete {
-    func handleMenuToggle(menuOption: MenuOptions?) {
-        if !isExpended {
-            configureMenuController()
+    func handleMenuToggle(menuOption: MenuOptions?, newsData: ([JSON], Int)?) {
+        if newsData == nil {
+            if !isExpended {
+                configureMenuController()
+            }
+            isExpended = !isExpended
+            animateMenu(shouldExpand: isExpended, menuOption: menuOption)
+        } else {
+            performSegue(withIdentifier: "newsSegue", sender: newsData)
         }
-        isExpended = !isExpended
-        animateMenu(shouldExpand: isExpended, menuOption: menuOption)
     }
 }

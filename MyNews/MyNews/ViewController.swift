@@ -18,9 +18,10 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         badLoginOrPassword.isHidden = true
-        // Do any additional setup after loading the view.
+        eMail.delegate = self
+        password.delegate = self
     }
-
+    
     @IBAction func unWindSegue(segue: UIStoryboardSegue){
     }
     
@@ -30,7 +31,6 @@ class LoginViewController: UIViewController {
                 self!.performSegue(withIdentifier: "SignInSucces", sender: "Foo")
             } else {
                 print(error!.localizedDescription)
-//                self?.badLoginOrPassword.text = error!.localizedDescription
                 self?.badLoginOrPassword.isHidden = false
                 self?.eMail.layer.borderWidth = 1.0
                 self?.eMail.layer.borderColor = UIColor.red.cgColor
@@ -46,3 +46,10 @@ class LoginViewController: UIViewController {
     }
 }
 
+extension LoginViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+}
