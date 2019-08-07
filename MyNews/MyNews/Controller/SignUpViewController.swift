@@ -22,7 +22,7 @@ class SignUpViewController: UIViewController {
         password.delegate = self
         confirmPassword.delegate = self
     }
-    
+
     
     @IBAction func nextButton(_ sender: UIButton) {
         if password.text != confirmPassword.text {
@@ -36,7 +36,16 @@ class SignUpViewController: UIViewController {
         } 
         Auth.auth().createUser(withEmail: eMail.text!, password: password.text!) { authResult, error in
             if authResult != nil &&  error == nil {
-                self.performSegue(withIdentifier: "moreUserDetail", sender: "Foo")
+                let postInfo = ["userName": "", "userSername": "", "userMobile": "", "userBirthDate": "", "userCountry" : "", "userCity" : "", "userSources" : ""] as [String : Any]
+                let user = Auth.auth().currentUser
+                Database.database().reference().child("users").child("\(user!.uid)").setValue(postInfo) { (error:Error?, ref:DatabaseReference) in
+                    if let error = error {
+                        print("Data could not be saved: \(error).")
+                    } else {
+                        print("Data saved successfully!")
+                        self.performSegue(withIdentifier: "signUpDone", sender: "Foo")
+                    }
+                }
             } else {
                 self.errorLabel.isHidden = false
                 self.errorLabel.text = error?.localizedDescription
@@ -45,6 +54,7 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func unWindSegue(segue: UIStoryboardSegue){
+        performSegue(withIdentifier: "BackToLoginView", sender: "Foo")
     }
 }
 

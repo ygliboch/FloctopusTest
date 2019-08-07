@@ -15,6 +15,27 @@ class RequestsManager {
     let ref = Database.database().reference()
     let user = Auth.auth().currentUser
     
+    func isUser(completationHandler: @escaping(Bool)->Void) {
+        ref.child("users").child("\(user!.uid)").observe(.value) { (DataSnapshot) in
+            DispatchQueue.main.async {
+                let dick = DataSnapshot.value as? [String : Any] ?? [:]
+                guard dick.isEmpty == false else { return }
+                let name = dick["userName"] as! String
+                let sername = dick["userSername"] as! String
+                let phone = dick["userMobile"] as! String
+                let country = dick["userCountry"] as! String
+                let city = dick["userCity"] as! String
+                let date = dick["userBirthDate"] as! String
+                if name.isEmpty || sername.isEmpty || phone.isEmpty || country.isEmpty
+                    || city.isEmpty || date.isEmpty {
+                    completationHandler(false)
+                } else {
+                    completationHandler(true)
+                }
+            }
+        }
+    }
+    
     func getNews(sources: String, completationHandler: @escaping(JSON?)->Void) { Alamofire.request("https://newsapi.org/v2/top-headlines?sources=\(sources)&apiKey=d9190df3b0dc4cffa64adadb38af6078").responseJSON { (response) in
             if response.data != nil && response.error == nil {
                 let json = JSON(response.value!)

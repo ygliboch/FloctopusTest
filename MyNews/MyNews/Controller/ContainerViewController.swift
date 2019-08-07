@@ -24,7 +24,13 @@ class ContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
-        self.requestsManager.getSources(completationHandler: {(response) in
+        requestsManager.isUser(completationHandler: {(response) in
+            if response == false {
+                self.performSegue(withIdentifier: "profileSegue", sender: "Foo")
+            }
+        })
+        
+        requestsManager.getSources(completationHandler: {(response) in
             guard response?.isEmpty == false else { return }
             self.sources = response
         })

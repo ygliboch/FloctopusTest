@@ -23,6 +23,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func unWindSegue(segue: UIStoryboardSegue){
+        eMail.text = ""
+        password.text = ""
     }
     
     @IBAction func SignInButton(_ sender: UIButton) {
@@ -36,6 +38,7 @@ class LoginViewController: UIViewController {
                 self?.eMail.layer.borderColor = UIColor.red.cgColor
                 self?.password.layer.borderWidth = 1.0
                 self?.password.layer.borderColor = UIColor.red.cgColor
+                self?.password.text = ""
                 return
             }
         }

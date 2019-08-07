@@ -21,8 +21,11 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var cityPicker: UIPickerView!
     @IBOutlet weak var coutryAlert: UILabel!
     @IBOutlet weak var cityAlert: UILabel!
+    @IBOutlet weak var birthDate: UIDatePicker!
+    @IBOutlet weak var birthDateAlert: UILabel!
     var countryString: String?
     var cityString: String?
+    var BirthDateStirng: String?
     var currTextFild: UITextField!
     
     let ref = Database.database().reference()
@@ -70,6 +73,7 @@ class ProfileViewController: UIViewController {
         ref.child("users").child("\(user!.uid)").child("userMobile").setValue(userPhone.text)
         ref.child("users").child("\(user!.uid)").child("userCountry").setValue(countryString!)
         ref.child("users").child("\(user!.uid)").child("userCity").setValue(cityString!)
+        ref.child("users").child("\(user!.uid)").child("userBirthDate").setValue(BirthDateStirng!)
         performSegue(withIdentifier: "backFromProfile", sender: "Foo")
     }
     
@@ -115,6 +119,13 @@ class ProfileViewController: UIViewController {
         }
         if cityString == nil {
             cityAlert.textColor = .red
+            return false
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy"
+        BirthDateStirng = dateFormatter.string(from: birthDate.date)
+        if BirthDateStirng == nil {
+            birthDateAlert.textColor = .red
             return false
         }
         return true
