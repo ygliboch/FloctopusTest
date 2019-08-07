@@ -23,6 +23,7 @@ class SignUpViewController: UIViewController {
         confirmPassword.delegate = self
     }
     
+    
     @IBAction func nextButton(_ sender: UIButton) {
         if password.text != confirmPassword.text {
             password.layer.borderWidth = 1.0

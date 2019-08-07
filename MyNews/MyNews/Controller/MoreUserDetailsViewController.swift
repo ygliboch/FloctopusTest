@@ -41,6 +41,7 @@ class MoreUserDetailsViewController: UIViewController {
         userSername.delegate = self
         userMobile.delegate = self
         countryPicker.delegate = self
+        cityOicker.delegate = self
     }
 
     @IBAction func backButton(_ sender: Any) {
@@ -51,7 +52,7 @@ class MoreUserDetailsViewController: UIViewController {
     
     @IBAction func nextButton(_ sender: Any) {
         if checkInfo() {
-            let postInfo = ["userName": userName.text!, "userSername": userSername.text!, "userMobile": userMobile.text!, "userBirthDate": dateString!, "userCountry" : "", "userCity" : "", "userSources" : ""] as [String : Any]
+            let postInfo = ["userName": userName.text!, "userSername": userSername.text!, "userMobile": userMobile.text!, "userBirthDate": dateString!, "userCountry" : countryString!, "userCity" : cityString!, "userSources" : ""] as [String : Any]
             
             Database.database().reference().child("users").child("\(user!.uid)").setValue(postInfo)
             performSegue(withIdentifier: "SignUpDone", sender: "Foo")
@@ -131,6 +132,8 @@ extension MoreUserDetailsViewController: UIPickerViewDelegate, UIPickerViewDataS
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == countryPicker {
             countryString = countryArray[row]
+            cityString = nil
+            cityOicker.reloadAllComponents()
         } else {
             cityString = cityArray[countryString!]![row]
         }

@@ -16,10 +16,13 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var confirmPassword: UITextField!
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var userSername: UITextField!
-    @IBOutlet weak var userCountryTextField: UITextField!
-    @IBOutlet weak var cityTextField: UITextField!
-    @IBOutlet weak var picker: UIPickerView!
+    @IBOutlet weak var countryPicker: UIPickerView!
     @IBOutlet weak var userPhone: UITextField!
+    @IBOutlet weak var cityPicker: UIPickerView!
+    @IBOutlet weak var coutryAlert: UILabel!
+    @IBOutlet weak var cityAlert: UILabel!
+    var countryString: String?
+    var cityString: String?
     var currTextFild: UITextField!
     
     let ref = Database.database().reference()
@@ -33,10 +36,13 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        picker.delegate = self
-        picker.isHidden = true
-        userCountryTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        cityTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        countryPicker.delegate = self
+        cityPicker.delegate = self
+        newPassword.delegate = self
+        confirmPassword.delegate = self
+        userName.delegate = self
+        userSername.delegate = self
+        userPhone.delegate = self
         configureUserInfo()
         configureNovigationBar()
     }
@@ -53,8 +59,6 @@ class ProfileViewController: UIViewController {
             self.userName.text = dick["userName"] as? String
             self.userSername.text = dick["userSername"] as? String
             self.userPhone.text = dick["userMobile"] as? String
-            self.userCountryTextField.text = dick["userCountry"] as? String
-            self.cityTextField.text = dick["userCity"] as? String
         }
     }
     
@@ -64,8 +68,8 @@ class ProfileViewController: UIViewController {
         ref.child("users").child("\(user!.uid)").child("userSername").setValue(userSername.text)
         ref.child("users").child("\(user!.uid)").child("userSername").setValue(userSername.text)
         ref.child("users").child("\(user!.uid)").child("userMobile").setValue(userPhone.text)
-        ref.child("users").child("\(user!.uid)").child("userCountry").setValue(userCountryTextField.text)
-        ref.child("users").child("\(user!.uid)").child("userCity").setValue(cityTextField.text)
+        ref.child("users").child("\(user!.uid)").child("userCountry").setValue(countryString!)
+        ref.child("users").child("\(user!.uid)").child("userCity").setValue(cityString!)
         performSegue(withIdentifier: "backFromProfile", sender: "Foo")
     }
     
@@ -105,31 +109,22 @@ class ProfileViewController: UIViewController {
             userPhone.layer.borderColor = UIColor.red.cgColor
             return false
         }
-        if userCountryTextField.text!.isEmpty {
-            userCountryTextField.layer.borderWidth = 1.0
-            userCountryTextField.layer.borderColor = UIColor.red.cgColor
+        if countryString == nil {
+            coutryAlert.textColor = .red
             return false
         }
-        if cityTextField.text!.isEmpty {
-            cityTextField.layer.borderWidth = 1.0
-            cityTextField.layer.borderColor = UIColor.red.cgColor
+        if cityString == nil {
+            cityAlert.textColor = .red
             return false
         }
         return true
     }
-    
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        if textField == userCountryTextField {
-            currTextFild = textField
-            currTextFild.isUserInteractionEnabled = false
-            picker.isHidden = false
-            picker.reloadAllComponents()
-        } else if textField == cityTextField {
-            currTextFild = textField
-            currTextFild.isUserInteractionEnabled = false
-            picker.isHidden = false
-            picker.reloadAllComponents()
-        }
+}
+
+extension ProfileViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
 }
 
@@ -139,37 +134,34 @@ extension ProfileViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if currTextFild == userCountryTextField {
+        if pickerView == countryPicker {
             return countryArray.count
-        }
-        else {
-            if userCountryTextField.text!.isEmpty {
+        } else {
+            if countryString == nil {
                 return 5
             }
-            return cityArray[userCountryTextField.text!]!.count
+            return cityArray[countryString!]!.count
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if currTextFild == userCountryTextField {
-           return countryArray[row]
+        if pickerView == countryPicker {
+            return countryArray[row]
         } else {
-            if userCountryTextField.text!.isEmpty {
+            if countryString == nil {
                 return "--"
             }
-            return cityArray[userCountryTextField.text!]![row]
+            return cityArray[countryString!]![row]
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if currTextFild == userCountryTextField {
-            currTextFild.text = countryArray[row]
-            currTextFild.isUserInteractionEnabled = true
-            picker.isHidden = true
+        if pickerView == countryPicker {
+            countryString = countryArray[row]
+            cityString = nil
+            cityPicker.reloadAllComponents()
         } else {
-            currTextFild.text = cityArray[userCountryTextField.text!]![row]
-            currTextFild.isUserInteractionEnabled = true
-            picker.isHidden = true
+            cityString = cityArray[countryString!]![row]
         }
     }
 }

@@ -37,8 +37,8 @@ class HomeViewController: UIViewController {
         tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        let nib = UINib(nibName: "LoadingCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "loadingCell")
+//        let nib = UINib(nibName: "LoadingCell", bundle: nil)
+//        tableView.register(nib, forCellReuseIdentifier: "loadingCell")
         tableView.register(NewsCell.self, forCellReuseIdentifier: "newsCell")
         tableView.backgroundColor = .darkGray
         tableView.separatorStyle = .singleLine
@@ -94,30 +94,27 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
+ 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+//        if section == 0 {
             return news.count
-        } else if fetchingMore {
-            return 1
-        }
-        return 0
+//        } else if fetchingMore {
+//            return 1
+//        }
+//        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+//        if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as! NewsCell
             cell.descriptionLabel.text = news[indexPath.row]["title"].string
             cell.sourceNameLabel.text = news[indexPath.row]["source"]["name"].string
             return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "loadingCell", for: indexPath) as! LoadingCell
-            cell.spinner.startAnimating()
-            return cell
-        }
+//        } else {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "loadingCell", for: indexPath) as! LoadingCell
+//            cell.spinner.startAnimating()
+//            return cell
+//        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -137,8 +134,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func beginBatchFatch() {
         fetchingMore = true
-        print("hello")
-        tableView.reloadSections(IndexSet(integer: 1), with: .none)
+//        print("hello")
+//        tableView.reloadSections(IndexSet(integer: 1), with: .none)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
             let newNews = self.news
             self.news.append(contentsOf: newNews)

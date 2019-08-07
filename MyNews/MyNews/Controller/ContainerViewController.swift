@@ -30,7 +30,16 @@ class ContainerViewController: UIViewController {
         })
         configureHomeController()
     }
-        
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        requestsManager.currentCity(completationHandler: {(response) in
+            if let city = response {
+                self.city = city
+            }
+        })
+    }
+    
     @IBAction func unWindSegue(segue: UIStoryboardSegue){
     }
     
@@ -132,14 +141,9 @@ class ContainerViewController: UIViewController {
                 }
             })
         case .Weather:
-            requestsManager.currentCity(completationHandler: {(response) in
-                if let city = response {
-                    self.city = city
-                    self.requestsManager.getWeatherJSON(forCity: city, completationHandler: {(response) in
-                        guard response?.isEmpty == false else { return }
-                        self.performSegue(withIdentifier: "weathrSegue", sender: response)
-                    })
-                }
+            self.requestsManager.getWeatherJSON(forCity: city!, completationHandler: {(response) in
+                guard response?.isEmpty == false else { return }
+                self.performSegue(withIdentifier: "weathrSegue", sender: response)
             })
         case .Profile:
             performSegue(withIdentifier: "profileSegue", sender: "Foo")
