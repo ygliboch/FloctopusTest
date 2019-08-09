@@ -54,7 +54,6 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func unWindSegue(segue: UIStoryboardSegue){
-        performSegue(withIdentifier: "BackToLoginView", sender: "Foo")
     }
 }
 
