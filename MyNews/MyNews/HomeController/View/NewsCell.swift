@@ -31,12 +31,19 @@ class NewsCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        addSourceLabel()
+        addDescriptionLabel()
+    }
+    
+    private func addSourceLabel() {
         addSubview(sourceNameLabel)
         sourceNameLabel.translatesAutoresizingMaskIntoConstraints = false
         sourceNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
         sourceNameLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
         sourceNameLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
-        
+    }
+    
+    private func addDescriptionLabel() {
         addSubview(descriptionLabel)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.topAnchor.constraint(equalTo: sourceNameLabel.topAnchor, constant: 25).isActive = true

@@ -10,5 +10,5 @@ import UIKit
 import SwiftyJSON
 
 protocol HomeControllerDelegete {
-    func handleMenuToggle(menuOption: MenuOptions?, newsData: ([JSON], Int)?)
+    func handleMenuToggle(menuOption: MenuOptions?)
 }

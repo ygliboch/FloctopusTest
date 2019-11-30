@@ -12,11 +12,11 @@ import SwiftyJSON
 
 class ContainerViewController: UIViewController {
     
+    private let viewModel = ContainerViewModel()
     var homeController: HomeViewController!
     var menuController: MenuViewController!
     var centerController: UIViewController!
     var isExpended = false
-    let requestsManager = RequestsManager()
     var city: String?
     var sources: JSON?
     var userSources: String!
@@ -24,26 +24,19 @@ class ContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
-        requestsManager.isUser(completationHandler: {(response) in
-            if response == false {
-                self.performSegue(withIdentifier: "profileSegue", sender: "Foo")
-            }
-        })
-        
-        requestsManager.getSources(completationHandler: {(response) in
-            guard response?.isEmpty == false else { return }
-            self.sources = response
-        })
+        setupViewModel()
+        viewModel.isUserProfileEmpty()
         configureHomeController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        requestsManager.currentCity(completationHandler: {(response) in
-            if let city = response {
-                self.city = city
-            }
-        })
+    }
+    
+    private func setupViewModel() {
+        viewModel.userProfileIsEmpty = {
+            self.performSegue(withIdentifier: "profileSegue", sender: nil)
+        }
     }
     
     @IBAction func unWindSegue(segue: UIStoryboardSegue){
@@ -105,31 +98,14 @@ class ContainerViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "weathrSegue" && sender != nil) {
-            if let evc = segue.destination as? WeatherViewController {
-                evc.city = self.city
-                evc.json = sender as? JSON
-            }
-        }
-        if (segue.identifier == "sourcesSegue" && sender != nil) {
-            if let evc = segue.destination as? SourcesViewController {
-                if sources!.isEmpty {
-                    evc.userSources = []
-                } else {
-                    let str = sender as! String
-                    let subUserSources = str.split(separator: ",")
-                    var usrSources: [String] = []
-                    for sub in subUserSources {
-                        usrSources.append(String(sub))
-                    }
-                    evc.userSources = usrSources
-                }
-                evc.json = sources
-            }
-        }
-        if (segue.identifier == "newsSegue" && sender != nil) {
+//            if let evc = segue.destination as? WeatherViewController {
+//                evc.city = self.city
+//                evc.json = sender as? JSON
+//            }
+        } else if (segue.identifier == "newsSegue" && sender != nil) {
             if let evc = segue.destination as? NewsViewController {
-                evc.data = (sender as? ([JSON], Int))?.0
-                evc.index = (sender as? ([JSON], Int))?.1
+                evc.data = (sender as? ([NewsArticle], Int))?.0
+                evc.index = (sender as? ([NewsArticle], Int))?.1
             }
         }
     }
@@ -138,19 +114,12 @@ class ContainerViewController: UIViewController {
         switch menuOption {
 
         case .Sources:
-            requestsManager.getUserSources(completationHandler: {(response) in
-                if response != nil {
-                    DispatchQueue.main.async {
-                        print("========>", response!)
-                        self.performSegue(withIdentifier: "sourcesSegue", sender: response)
-                    }
-                }
-            })
+            self.performSegue(withIdentifier: "sourcesSegue", sender: nil)
         case .Weather:
-            self.requestsManager.getWeatherJSON(forCity: city!, completationHandler: {(response) in
-                guard response?.isEmpty == false else { return }
-                self.performSegue(withIdentifier: "weathrSegue", sender: response)
-            })
+//            OnlineRepository().getWeatherJSON(forCity: city!, completationHandler: {(response) in
+//                guard response?.isEmpty == false else { return }
+                self.performSegue(withIdentifier: "weathrSegue", sender: nil)
+//            })
         case .Profile:
             performSegue(withIdentifier: "profileSegue", sender: "Foo")
         case .Exit:
@@ -166,15 +135,11 @@ class ContainerViewController: UIViewController {
 }
 
 extension ContainerViewController: HomeControllerDelegete {
-    func handleMenuToggle(menuOption: MenuOptions?, newsData: ([JSON], Int)?) {
-        if newsData == nil {
-            if !isExpended {
-                configureMenuController()
-            }
-            isExpended = !isExpended
-            animateMenu(shouldExpand: isExpended, menuOption: menuOption)
-        } else {
-            performSegue(withIdentifier: "newsSegue", sender: newsData)
+    func handleMenuToggle(menuOption: MenuOptions?) {
+        if !isExpended {
+            configureMenuController()
         }
+        isExpended = !isExpended
+        animateMenu(shouldExpand: isExpended, menuOption: menuOption)
     }
 }

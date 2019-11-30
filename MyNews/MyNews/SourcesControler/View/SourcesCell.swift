@@ -18,15 +18,14 @@ class SourcesCell: UITableViewCell {
     var sellect: Bool!
     var id: String!
     
-    var data: JSON? {
+    var data: Source? {
         didSet {
-            if data != nil {
-                nameLabel.text = data!["name"].string
-                categoryLabel.text = data!["category"].string
-                descriptionLabel.text = data!["description"].string
-                id = data!["id"].string
-                box.isUserInteractionEnabled = false
-            }
+            guard data != nil else { return }
+            nameLabel.text = data!.name ?? ""
+            categoryLabel.text = data!.category ?? ""
+            descriptionLabel.text = data!.description ?? ""
+            id = data!.id
+            box.isUserInteractionEnabled = false
         }
     }
     

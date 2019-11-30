@@ -13,24 +13,34 @@ import Firebase
 class SourcesViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    var json: JSON?
-    var userSources: [String]!
-    var allSources: [JSON] = []
     @IBOutlet weak var navigationBar: UINavigationBar!
-    let ref = Database.database().reference()
-    let user = Auth.auth().currentUser
+    private var viewModel = SourcesViewModel()
+    private var userSources: [String] = []
+    private var allSources: [Source] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNovigationBar()
-        getSourcesArray()
+        setupViewModel()
+        viewModel.getAllSources()
         tableView.delegate = self
         tableView.dataSource = self
     }
     
-    func getSourcesArray () {
-        for article in json!["sources"]{
-            allSources.append(article.1)
+    private func setupViewModel() {
+        viewModel.allSourcesDone = { (response) in
+            self.allSources = response.sources
+            self.viewModel.getUserSources()
+        }
+        viewModel.userSourcesDone = { (response) in
+            self.userSources = response
+            self.tableView.reloadData()
+        }
+        viewModel.successSaveUserSources = {
+            self.performSegue(withIdentifier: "backFromSourcesSegue", sender: "Foo")
+        }
+        viewModel.failedSaveUserSources = {
+            self.showAlert(title: "", message: "")
         }
     }
 
@@ -39,23 +49,17 @@ class SourcesViewController: UIViewController {
         navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(handleDismis))
     }
     
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default) { (_) in
+            self.performSegue(withIdentifier: "backFromSourcesSegue", sender: "Foo")
+        }
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
     @objc func handleDismis () {
-        var sources = ""
-        for sellect in userSources {
-            if sources == "" {
-                sources = "\(sellect)"
-            } else {
-                sources += ",\(sellect)"
-            }
-        }
-        ref.child("users").child("\(user!.uid)").child("userSources").setValue("\(sources)") { (error:Error?, ref:DatabaseReference) in
-            if let error = error {
-                print("Data could not be saved: \(error).")
-            } else {
-                print("Data saved successfully!")
-                self.performSegue(withIdentifier: "backFromSourcesSegue", sender: "Foo")
-            }
-        }
+        viewModel.saveUserSources(newSources: userSources)
     }
 }
 
@@ -66,7 +70,7 @@ extension SourcesViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "sourcesCell", for: indexPath) as! SourcesCell
-        let id = allSources[indexPath.row]["id"].string!
+        let id = allSources[indexPath.row].id ?? ""
         cell.selectionStyle = .none
         if userSources.contains(id) {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
@@ -76,8 +80,8 @@ extension SourcesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let id = allSources[indexPath.row]["id"].string
-        if userSources.contains(id!) {
+        let id = allSources[indexPath.row].id ?? ""
+        if userSources.contains(id) {
             let sources: [String] = userSources
             userSources = []
             for sour in sources {
@@ -91,7 +95,7 @@ extension SourcesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let id = allSources[indexPath.row]["id"].string
-        userSources.append(id!)
+        let id = allSources[indexPath.row].id ?? ""
+        userSources.append(id)
     }
 }
