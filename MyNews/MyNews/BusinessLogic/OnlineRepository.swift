@@ -147,17 +147,6 @@ final class OnlineRepository {
         }
     }
     
-    func getWeatherJSON(forCity: String, completationHandler: @escaping(JSON?)->Void) {
-        Alamofire.request("https://api.apixu.com/v1/forecast.json?key=4e4fb7ec428e4c159e1141119190308&q=\(forCity)&days=7").responseJSON { (result) in
-            if result.data != nil && result.error == nil {
-                let json = JSON(result.value!)
-                completationHandler(json)
-            } else {
-                print(result.error!.localizedDescription)
-            }
-        }.task?.resume()
-    }
-    
     func getSources(completionHandler: @escaping(SourcesList?)->Void) {
         Alamofire.request("https://newsapi.org/v2/sources?apiKey=d9190df3b0dc4cffa64adadb38af6078").responseJSON { (response) in
             if response.data != nil && response.error == nil {

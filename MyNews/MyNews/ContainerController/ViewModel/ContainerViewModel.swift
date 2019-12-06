@@ -21,9 +21,4 @@ final class ContainerViewModel {
             }
         }
     }
-    
-    func getSources() {
-        
-    }
-    
 }

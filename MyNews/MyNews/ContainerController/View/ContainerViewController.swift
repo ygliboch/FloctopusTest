@@ -97,12 +97,7 @@ class ContainerViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "weathrSegue" && sender != nil) {
-//            if let evc = segue.destination as? WeatherViewController {
-//                evc.city = self.city
-//                evc.json = sender as? JSON
-//            }
-        } else if (segue.identifier == "newsSegue" && sender != nil) {
+        if (segue.identifier == "newsSegue" && sender != nil) {
             if let evc = segue.destination as? NewsViewController {
                 evc.data = (sender as? ([NewsArticle], Int))?.0
                 evc.index = (sender as? ([NewsArticle], Int))?.1
@@ -112,14 +107,8 @@ class ContainerViewController: UIViewController {
     
     func didSelectMenuOption(menuOption: MenuOptions) {
         switch menuOption {
-
         case .Sources:
             self.performSegue(withIdentifier: "sourcesSegue", sender: nil)
-        case .Weather:
-//            OnlineRepository().getWeatherJSON(forCity: city!, completationHandler: {(response) in
-//                guard response?.isEmpty == false else { return }
-                self.performSegue(withIdentifier: "weathrSegue", sender: nil)
-//            })
         case .Profile:
             performSegue(withIdentifier: "profileSegue", sender: "Foo")
         case .Exit:

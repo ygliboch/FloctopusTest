@@ -20,9 +20,14 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModel()
-//        configureKeyboardNotifications()
         eMail.delegate = self
         password.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        eMail.layer.borderWidth = 0
+        password.layer.borderWidth = 0
     }
     
     override func viewDidLayoutSubviews() {
@@ -51,28 +56,6 @@ class LoginViewController: UIViewController {
         password.text = ""
         showToast(message: "Bad password or login")
     }
-//
-//    private func configureKeyboardNotifications() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyoardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-//
-//    }
-    
-//    @objc func keyoardWillShow(notification: NSNotification) {
-//    let userInfo = notification.userInfo!
-//    let keyboardScreenEndFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-//    let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
-//    let animationDurarion = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as! TimeInterval
-////    self.newMessageAreaBottomAnchor.constant +=  keyboardViewEndFrame.height - (UIScreen.main.bounds.maxY - newMessageArea.frame.maxY)
-////    UIView.animate(withDuration: animationDurarion) {
-////        self.view.layoutIfNeeded()
-////    }
-//
-//    }
-    
-//    @objc func keyboardWillHide() {
-//
-//    }
     
     @IBAction func unWindSegue(segue: UIStoryboardSegue){
         eMail.text = ""
@@ -93,7 +76,7 @@ class LoginViewController: UIViewController {
         signInOutlet.layer.insertSublayer(gradient, at: 0)
     }
     
-    func showToast(message : String) {
+    private func showToast(message : String) {
         let toastLabel = UILabel(frame: CGRect(x: 15, y: view.frame.size.height - 172, width: view.frame.size.width - 30, height: 48))
         toastLabel.textAlignment = .center
         toastLabel.backgroundColor = ERROR_LIGHT_RED_COLOR

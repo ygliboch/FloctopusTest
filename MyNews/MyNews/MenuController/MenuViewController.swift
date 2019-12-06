@@ -10,7 +10,6 @@ import UIKit
 
 enum MenuOptions: Int, CustomStringConvertible {
     case Sources
-    case Weather
     case Profile
     case Exit
     
@@ -18,8 +17,6 @@ enum MenuOptions: Int, CustomStringConvertible {
         switch self {
         case .Sources:
             return "Sources"
-        case .Weather:
-            return "Weater"
         case .Profile:
             return "Profile"
         case .Exit:
@@ -31,8 +28,6 @@ enum MenuOptions: Int, CustomStringConvertible {
         switch self {
         case .Sources:
             return UIImage(named: "sources") ?? UIImage()
-        case .Weather:
-            return UIImage(named: "weather") ?? UIImage()
         case .Profile:
             return UIImage(named: "profile") ?? UIImage()
         case .Exit:
@@ -56,7 +51,6 @@ class MenuViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(MenuTableViewCell.self, forCellReuseIdentifier: "MenuCell")
-        tableView.backgroundColor = .darkGray
         tableView.separatorStyle = .none
         tableView.rowHeight = 80
         view.addSubview(tableView)
