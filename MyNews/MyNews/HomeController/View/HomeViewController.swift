@@ -48,14 +48,14 @@ class HomeViewController: UIViewController {
     }
     
     
-    func configureNavigationBar () {
+    private func configureNavigationBar () {
         navigationController?.navigationBar.barTintColor = .gray
         navigationController?.navigationBar.barStyle = .black
         navigationItem.title = "MyNews"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "icons8-menu-30").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleMenuToggle))
     }
     
-    func configureTableView() {
+    private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(NewsCell.self, forCellReuseIdentifier: "newsCell")
@@ -87,6 +87,7 @@ class HomeViewController: UIViewController {
     }
 }
 
+//MARK: - TableView
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
  
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

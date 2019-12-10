@@ -35,11 +35,20 @@ class SignUpViewController: UIViewController {
             self.performSegue(withIdentifier: "signUpDone", sender: nil)
         }
         viewModel.failedAddUserItems = {
-            
+            self.showToast(message: "Something went wrong. Please try again")
         }
     }
     
-    func showToast(message : String) {
+    private func configureErrorTextFields() {
+        password.layer.borderWidth = 1.0
+        password.layer.borderColor = UIColor.red.cgColor
+        confirmPassword.layer.borderWidth = 1.0
+        confirmPassword.layer.borderColor = UIColor.red.cgColor
+        password.text = ""
+        confirmPassword.text = ""
+    }
+    
+    private func showToast(message : String) {
         let toastLabel = UILabel(frame: CGRect(x: 15, y: view.frame.size.height - 172, width: view.frame.size.width - 30, height: 48))
         toastLabel.textAlignment = .center
         toastLabel.backgroundColor = ERROR_LIGHT_RED_COLOR
@@ -67,19 +76,11 @@ class SignUpViewController: UIViewController {
         viewModel.createUser(email: eMail.text ?? "" , password: password.text ?? "")
     }
     
-    private func configureErrorTextFields() {
-        password.layer.borderWidth = 1.0
-        password.layer.borderColor = UIColor.red.cgColor
-        confirmPassword.layer.borderWidth = 1.0
-        confirmPassword.layer.borderColor = UIColor.red.cgColor
-        password.text = ""
-        confirmPassword.text = ""
-    }
-    
     @IBAction func unWindSegue(segue: UIStoryboardSegue){
     }
 }
 
+//MARK: - TextField
 extension SignUpViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)

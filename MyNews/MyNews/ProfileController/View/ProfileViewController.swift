@@ -86,7 +86,7 @@ class ProfileViewController: UIViewController {
         ref.child("users").child("\(user!.uid)").child("userSername").setValue(userSername.text)
         ref.child("users").child("\(user!.uid)").child("userMobile").setValue(userPhone.text)
         ref.child("users").child("\(user!.uid)").child("userBirthDate").setValue(birthDateStirng!)
-        performSegue(withIdentifier: "backFromProfile", sender: "Foo")
+        performSegue(withIdentifier: "backFromProfile", sender: nil)
     }
     
     @IBAction func changePasswordButton(_ sender: Any) {

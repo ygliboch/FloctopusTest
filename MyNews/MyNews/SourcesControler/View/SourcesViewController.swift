@@ -37,7 +37,7 @@ class SourcesViewController: UIViewController {
             self.tableView.reloadData()
         }
         viewModel.successSaveUserSources = {
-            self.performSegue(withIdentifier: "backFromSourcesSegue", sender: "Foo")
+            self.performSegue(withIdentifier: "backFromSourcesSegue", sender: nil)
         }
         viewModel.failedSaveUserSources = {
             self.showAlert(title: "", message: "")
@@ -52,7 +52,7 @@ class SourcesViewController: UIViewController {
     private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .default) { (_) in
-            self.performSegue(withIdentifier: "backFromSourcesSegue", sender: "Foo")
+            self.performSegue(withIdentifier: "backFromSourcesSegue", sender: nil)
         }
         alert.addAction(action)
         present(alert, animated: true, completion: nil)

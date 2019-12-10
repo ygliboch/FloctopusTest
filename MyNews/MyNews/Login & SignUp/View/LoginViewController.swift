@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import Firebase
 
 class LoginViewController: UIViewController {
 
@@ -28,6 +27,8 @@ class LoginViewController: UIViewController {
         super.viewWillAppear(animated)
         eMail.layer.borderWidth = 0
         password.layer.borderWidth = 0
+        password.text = ""
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -42,7 +43,7 @@ class LoginViewController: UIViewController {
             self!.badAuth()
         }
         viewModel.successUserSignIn = { [weak self] in
-            self!.performSegue(withIdentifier: "SignInSucces", sender: "Foo")
+            self!.performSegue(withIdentifier: "SignInSucces", sender: nil)
         }
     }
     
@@ -55,25 +56,6 @@ class LoginViewController: UIViewController {
         password.layer.borderColor = UIColor.red.cgColor
         password.text = ""
         showToast(message: "Bad password or login")
-    }
-    
-    @IBAction func unWindSegue(segue: UIStoryboardSegue){
-        eMail.text = ""
-        password.text = ""
-    }
-    
-    @IBAction func SignInButton(_ sender: UIButton) {
-        eMail.endEditing(true)
-        password.endEditing(true)
-        viewModel.signInUser(email: eMail.text ?? "", passward: password.text ?? "")
-    }
-    
-    private func addButtonGradient() {
-        let colours = [MAIN_BLUE_COLOR, GRADIENT_LIGHT_BLUE_COLOR]
-        let gradient: CAGradientLayer = CAGradientLayer()
-        gradient.frame = signInOutlet.bounds
-        gradient.colors = colours.map { $0.cgColor }
-        signInOutlet.layer.insertSublayer(gradient, at: 0)
     }
     
     private func showToast(message : String) {
@@ -95,9 +77,28 @@ class LoginViewController: UIViewController {
                 toastLabel.removeFromSuperview()
         })
     }
+    
+    private func addButtonGradient() {
+        let colours = [MAIN_BLUE_COLOR, GRADIENT_LIGHT_BLUE_COLOR]
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.frame = signInOutlet.bounds
+        gradient.colors = colours.map { $0.cgColor }
+        signInOutlet.layer.insertSublayer(gradient, at: 0)
+    }
+    
+    @IBAction func unWindSegue(segue: UIStoryboardSegue){
+        eMail.text = ""
+        password.text = ""
+    }
+    
+    @IBAction func SignInButton(_ sender: UIButton) {
+        eMail.endEditing(true)
+        password.endEditing(true)
+        viewModel.signInUser(email: eMail.text ?? "", passward: password.text ?? "")
+    }
 
     @IBAction func SignUpButton(_ sender: Any) {
-        performSegue(withIdentifier: "SignUp", sender: "Foo")
+        performSegue(withIdentifier: "SignUp", sender: nil)
     }
 }
 

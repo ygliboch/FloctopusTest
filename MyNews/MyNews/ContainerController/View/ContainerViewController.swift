@@ -12,36 +12,6 @@ import SwiftyJSON
 
 class ContainerViewController: UIViewController {
     
-    private let viewModel = ContainerViewModel()
-    var homeController: HomeViewController!
-    var menuController: MenuViewController!
-    var centerController: UIViewController!
-    var isExpended = false
-    var city: String?
-    var sources: JSON?
-    var userSources: String!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        setupViewModel()
-        viewModel.isUserProfileEmpty()
-        configureHomeController()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    private func setupViewModel() {
-        viewModel.userProfileIsEmpty = {
-            self.performSegue(withIdentifier: "profileSegue", sender: nil)
-        }
-    }
-    
-    @IBAction func unWindSegue(segue: UIStoryboardSegue){
-    }
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -54,7 +24,27 @@ class ContainerViewController: UIViewController {
         return isExpended
     }
     
-    func configureHomeController () {
+    private let viewModel = ContainerViewModel()
+    private var homeController: HomeViewController!
+    private var menuController: MenuViewController!
+    private var centerController: UIViewController!
+    private var isExpended = false
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        setupViewModel()
+        viewModel.isUserProfileEmpty()
+        configureHomeController()
+    }
+    
+    private func setupViewModel() {
+        viewModel.userProfileIsEmpty = {
+            self.performSegue(withIdentifier: "profileSegue", sender: nil)
+        }
+    }
+    
+    private func configureHomeController () {
         homeController = HomeViewController()
         homeController.delegate = self
         centerController = UINavigationController(rootViewController: homeController)
@@ -63,17 +53,16 @@ class ContainerViewController: UIViewController {
         centerController.didMove(toParent: self)
     }
     
-    func configureMenuController () {
-        if menuController == nil {
-            menuController = MenuViewController()
-            menuController.delegate = self
-            view.insertSubview(menuController.view, at: 0)
-            addChild(menuController)
-            menuController.didMove(toParent: self)
-        }
+    private func configureMenuController () {
+        guard menuController == nil else { return }
+        menuController = MenuViewController()
+        menuController.delegate = self
+        view.insertSubview(menuController.view, at: 0)
+        addChild(menuController)
+        menuController.didMove(toParent: self)
     }
     
-    func animateMenu(shouldExpand: Bool, menuOption: MenuOptions?) {
+    private func animateMenu(shouldExpand: Bool, menuOption: MenuOptions?) {
         switch shouldExpand {
         case true:
             UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
@@ -90,7 +79,7 @@ class ContainerViewController: UIViewController {
         animatedStatusBar()
     }
     
-    func animatedStatusBar() {
+    private func animatedStatusBar() {
         UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
             self.setNeedsStatusBarAppearanceUpdate()
         }, completion: nil)
@@ -105,20 +94,23 @@ class ContainerViewController: UIViewController {
         }
     }
     
-    func didSelectMenuOption(menuOption: MenuOptions) {
+    private func didSelectMenuOption(menuOption: MenuOptions) {
         switch menuOption {
         case .Sources:
             self.performSegue(withIdentifier: "sourcesSegue", sender: nil)
         case .Profile:
-            performSegue(withIdentifier: "profileSegue", sender: "Foo")
+            self.performSegue(withIdentifier: "profileSegue", sender: "Foo")
         case .Exit:
             do {
                 try Auth.auth().signOut()
-            } catch let signOutError as NSError {
-                print ("Error signing out: %@", signOutError)
+            } catch {
+                return
             }
-            performSegue(withIdentifier: "LogOutSegue", sender: "Foo")
+            self.navigationController?.popToViewController((self.navigationController?.viewControllers[0])!, animated: true)
         }
+    }
+    
+    @IBAction func unWindSegue(segue: UIStoryboardSegue){
     }
     
 }

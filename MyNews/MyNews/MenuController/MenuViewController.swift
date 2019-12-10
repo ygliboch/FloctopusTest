@@ -38,7 +38,7 @@ enum MenuOptions: Int, CustomStringConvertible {
 
 class MenuViewController: UIViewController {
 
-    var tableView: UITableView!
+    private var tableView: UITableView!
     var delegate: HomeControllerDelegete?
     
     override func viewDidLoad() {
@@ -46,7 +46,7 @@ class MenuViewController: UIViewController {
         configureTableView()
     }
     
-    func configureTableView() {
+    private func configureTableView() {
         tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
